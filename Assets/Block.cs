@@ -1,22 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public class Block : MonoBehaviour
 {
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public Action OnDeadAction = null;
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball") {
+        if (collision.gameObject.tag == "Ball")
+        {
+            transform.SetParent(null);
             Destroy(gameObject);
+            if (OnDeadAction != null)
+            {
+                OnDeadAction();
+            }
         }
     }
 }

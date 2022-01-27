@@ -8,10 +8,9 @@ public class ScoreText : MonoBehaviour
 {
     [SerializeField]
     string scoreHeader = "SCORE:";
+    [SerializeField]
     string scoreFomat = "D5";
-
     private int _score = 0;
-
     public int Score
     {
         set {
@@ -20,6 +19,10 @@ public class ScoreText : MonoBehaviour
                 _score = value;
                 UpdateValue();
             }
+        }
+        get
+        {
+            return _score;
         }
     }
 
