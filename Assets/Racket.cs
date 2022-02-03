@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Racket : MonoBehaviour
 {
-
     public float accel = 1000.0f;
+    [SerializeField]
     private Vector3 inputVector = new Vector3();
     private Rigidbody rig;
     // Use this for initialization
@@ -23,5 +23,17 @@ public class Racket : MonoBehaviour
     void FixedUpdate()
     {
         rig.AddForce(inputVector, ForceMode.Impulse);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ball")
+        {
+            Debug.Log($"On Racket{collision.gameObject.GetComponent<Rigidbody>().velocity}");
+            var rb = collision.gameObject.GetComponent<Rigidbody>();
+            var velocity = rb.velocity;
+            var contact = collision.GetContact(0);
+            rb.gameObject.transform.LookAt((contact.point - this.transform.position)* velocity.magnitude);
+            rb.velocity = rb.gameObject.transform.forward * velocity.magnitude;
+        }
     }
 }

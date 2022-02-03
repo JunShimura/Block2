@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 
     [SerializeField] ScoreText scoreText;
     [SerializeField] Ball ball;
-    [SerializeField] Ready ready;
+    [SerializeField] ClickPanel ready;
     [SerializeField] ClickPanel gameClear;
     [SerializeField] ClickPanel gameOver;
     [SerializeField] BlockManager blockManager;
@@ -76,6 +76,7 @@ public class GameController : MonoBehaviour
             case GameState.Ready:
                 gameClear.gameObject.SetActive(false);
                 ready.gameObject.SetActive(true);
+                ready.OnClickedAction = () => { GameController.gameState = GameState.InGame; };
                 Score = 0;
                 break;
             case GameState.InGame:

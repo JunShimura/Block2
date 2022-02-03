@@ -9,7 +9,7 @@ public class ClickPanel : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))
         {
             // クリックされた
             Debug.Log("クリックされた");
