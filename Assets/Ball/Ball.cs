@@ -33,7 +33,7 @@ public class Ball : MonoBehaviour
             var v = new Vector3(
                 rb.velocity.x,
                 rb.velocity.y,
-                exclusionVelocityZ * Mathf.Sign(rb.velocity.z) * 2)
+                -exclusionVelocityZ * 2)
                 .normalized
                 * rb.velocity.magnitude;
             Debug.Log($"補正{rb.velocity.ToString()}⇒{v.ToString()}");

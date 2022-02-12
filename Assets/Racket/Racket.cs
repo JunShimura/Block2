@@ -26,7 +26,7 @@ public class Racket : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Ball")
+        if (collision.gameObject.GetComponent<Ball>()!=null)
         {
             Debug.Log($"On Racket{collision.gameObject.GetComponent<Rigidbody>().velocity}");
             var rb = collision.gameObject.GetComponent<Rigidbody>();
