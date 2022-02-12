@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
+
 public class Ball : MonoBehaviour
 {
     public float speed = 20.0f;
