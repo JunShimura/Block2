@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     public int speedUpCycle = 20;
     public float speedUpRatio = 1.0625f;
     private int collisionCount = 0;
-    public float exclusionVelocityY = 0.125f;
+    public float exclusionVelocityZ = 0.125f;
     private Vector3 adjust = Vector3.zero;
     private Rigidbody rb;
     // Use this for initialization
@@ -22,29 +22,21 @@ public class Ball : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        collisionCount= (collisionCount+1)%speedUpCycle;
-        if (collisionCount == 0&&rb.velocity.magnitude<maxSpeed)
+        collisionCount = (collisionCount + 1) % speedUpCycle;
+        if (collisionCount == 0 && rb.velocity.magnitude < maxSpeed)
         {
             rb.velocity = rb.velocity * speedUpRatio;
         }
-        if (Mathf.Abs(rb.velocity.y) < exclusionVelocityY)
+        if (Mathf.Abs(rb.velocity.z) < exclusionVelocityZ)
         {
             var v = new Vector3(
                 rb.velocity.x,
-                exclusionVelocityY*Mathf.Sign(rb.velocity.y)*2,
-                rb.velocity.z)
+                rb.velocity.y,
+                exclusionVelocityZ * Mathf.Sign(rb.velocity.z) * 2)
                 .normalized
-                *rb.velocity.magnitude;
+                * rb.velocity.magnitude;
             Debug.Log($"補正{rb.velocity.ToString()}⇒{v.ToString()}");
-            adjust = v;
-        }
-    }
-    private void FixedUpdate()
-    {
-        if(adjust != Vector3.zero)
-        {
-            rb.velocity = adjust;
-            adjust = Vector3.zero;
+            rb.velocity = v;
         }
     }
 }
